@@ -7,7 +7,7 @@ const getID = (username) => {
 		fetch(`https://api.twitch.tv/kraken/users?login=${username}`, {
 			headers: {
 				'Accept'   : 'application/vnd.twitchtv.v5+json',
-				'Client-ID': 'cclk5hafv1i7lksfauerry4w7ythu2'
+				'Client-ID': 'b4sj5euottb8mm7pc1lfvi84kvzxqxk'
 			}
 		}).then((response) => response.json()).then((result) => {
 			if (result.users[0]) {
@@ -22,7 +22,7 @@ const getID = (username) => {
 const getFollowing = (id, page = 0) => {
 	return new Promise((resolve, reject) => {
 		fetch(`https://api.twitch.tv/kraken/users/${id}/follows/channels?limit=100&offset=${page * 100}`, {
-			headers: {'Accept': 'application/vnd.twitchtv.v5+json', 'Client-ID': 'cclk5hafv1i7lksfauerry4w7ythu2'}
+			headers: {'Accept': 'application/vnd.twitchtv.v5+json', 'Client-ID': 'b4sj5euottb8mm7pc1lfvi84kvzxqxk'}
 		}).then(response => response.json()).then(result => {
 			if (result._total > 0) {
 				const followings = result.follows.map(follow => follow.channel.display_name);
@@ -43,8 +43,8 @@ const getFollowing = (id, page = 0) => {
 const lurk = () => {
 	getID(config.username).then(id => {
 		getFollowing(id).then(followings => {
-			console.log(`Got ${followings.length} followings.`);
-			const channels = followings.sort().map(follow => `#${follow}`);
+			console.log(`Got ${followings.split(',').length} followings.`);
+			const channels = followings.split(',').map(follow => `#${follow}`);
 			const options = {
 				connection: {
 					reconnect: true,
@@ -98,8 +98,8 @@ const lurk = () => {
 					lurk();
 				});
 			});
-		}).catch(() => {
-			console.log(`Could not get ${config.username}'s following list.`);
+		}).catch((err) => {
+			console.log(`Could not get ${config.username}'s following list. Error: ${err}`);
 		});
 	}).catch(() => {
 		console.log(`Could not get ${config.username}'s user ID.`);

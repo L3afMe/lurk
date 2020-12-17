@@ -106,4 +106,4 @@ const lurk = () => {
 	});
 };
 
-//lurk();
+lurk();

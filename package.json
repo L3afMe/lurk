@@ -4,17 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+      "start": "node ."
   },
   "keywords": [],
-  "author": "",
+  "author": "L3afMe",
   "license": "ISC",
   "dependencies": {
     "node-fetch": "^2.6.1",
-    "puppeteer": "^5.4.1",
-    "puppeteer-extra": "^3.1.15",
-    "puppeteer-extra-plugin-adblocker": "^2.11.8",
-    "puppeteer-extra-plugin-stealth": "^2.6.5",
     "tmi.js": "^1.5.0"
   }
 }
